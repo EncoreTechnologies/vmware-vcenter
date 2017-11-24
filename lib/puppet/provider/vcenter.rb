@@ -16,12 +16,16 @@ class Puppet::Provider::Vcenter <  Puppet::Provider
     unless resource[:transport]
       raise Puppet::Error, "No transport metaparameter provided for #{resource.ref}"
     end
-    unless resource[:transport].is_a?(Puppet::Resource)
-      raise Puppet::Error, "Invalid transport #{resource[:transport]} provided for #{resource.ref}"
-    end
-    unless resource[:transport].type == "Transport"
-      raise Puppet::Error, "Transport metaparameter must be of type Transport for #{resource.ref}"
-    end
+    #### Begin Encore Mods
+    ## When running master/agent style, the puppet resources are strings and
+    ## not object types. Luckily this code works fine without these two checks
+    # unless resource[:transport].is_a?(Puppet::Resource)
+    #   raise Puppet::Error, "Invalid transport #{resource[:transport]} provided for #{resource.ref}"
+    # end
+    # unless resource[:transport].type == "Transport"
+    #   raise Puppet::Error, "Transport metaparameter must be of type Transport for #{resource.ref}"
+    # end
+    #### End Encore Mods
     unless resource.catalog.resource_refs.include?(resource[:transport].to_s)
       raise Puppet::Error, "Transport #{resource[:transport].to_s} not defined for #{resource.ref}"
     end
