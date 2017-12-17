@@ -24,7 +24,7 @@ module PuppetX::VMware::Mapper
             },
           },
         ],
-	      :readOnlyCommunity => LeafData[
+	      :readOnlyCommunities => LeafData[
 	        :prop_name => PROP_NAME_IS_FULL_PATH,
 	        :desc => 'Array of read-only Community strings. For example: ["abc123", "xxx555"]',
 	        :olio => {
